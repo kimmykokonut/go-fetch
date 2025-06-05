@@ -22,36 +22,24 @@ def print_greeting():
         """)
 
 def main():
-  # display welcome message
   print_greeting()
-  # initialize empty dir to store k-v pairs
-  # temp storage-session based, cleared when exit
   store = {}
-  # main progam loop, goes until 'exit'
   while True:
     try:
-      # set up command line
-      command = input("> ").strip() #remove lead/trail whitespace
-      # skips empty inputs (empty enter)
+      command = input("> ").strip()
       if not command:
         continue
-      # split input into parts
+
       parts = command.split(maxsplit=2)
-      # first word (put), make lowercase
       cmd = parts[0].lower()
-      # > put key value  --> if exist, overwrite. response: ok
       if cmd == 'put':
-        # check if key & value
         if len(parts) < 3:
           print("Invalid syntax.")
           continue
         key, value = parts[1], parts[2]
-        # store in dict. if exists, overwritten.
         store[key] = value
         print('ok')
-      # > fetch key --> return value or 'value not found'
       elif cmd == 'fetch':
-        # check key is provided
         if len(parts) < 2:
           print("Invalid syntax.")
           continue
@@ -60,14 +48,11 @@ def main():
           print(store[key])
         else:
           print('Value not found')
-      # > exit ---> return 'Bye! and exit
       elif cmd == 'exit':
         print('Bye!')
-        break # exit loop
-      # handle unknown commands
+        break
       else:
         print('Unknown command. Known commands are: put, fetch, exit.')
-    # handle program interruption (Ctrl+C) or EOF (Ctrl+D)
     except (EOFError, KeyboardInterrupt):
       break
 
