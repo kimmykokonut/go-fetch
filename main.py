@@ -27,6 +27,7 @@ def main():
   print_greeting()
   store = {}
   invalid = "Invalid syntax."
+  non_existent = "Value not found."
 
   while True:
     try:
@@ -35,7 +36,6 @@ def main():
         continue
 
       parts = command.split(maxsplit=2)
-      # put |dog| mucca  ... put |president| alexander word word
       cmd = parts[0].lower()
       if cmd == 'put':
         if len(parts) < 3:
@@ -52,7 +52,7 @@ def main():
         if key in store:
           print(store[key])
         else:
-          print('Value not found')
+          print(non_existent)
       elif cmd == 'delete':
         if len(parts) < 2:
           print(invalid)
@@ -62,13 +62,13 @@ def main():
           del store[key]
           print(f'Item deleted: {key}')
         else:
-          print('Value not found')
+          print(non_existent)
         # TODO if > 2, batch delete
       elif cmd == 'exit':
         print('Bye!')
         break
       else:
-        print('Unknown command. Known commands are: put, fetch, exit.')
+        print('Unknown command. Known commands are: put, fetch, delete or exit.')
     except (EOFError, KeyboardInterrupt):
       break
 
